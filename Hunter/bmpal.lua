@@ -41,7 +41,7 @@ local function combat()
      then
       return cast(SB.BeastialWrath)
     end
-    if toggle("racial", false) and castable(SB > BeastialWrath) and spell(SB.BeastialWrath).cooldown > 30 then
+    if toggle("racial", false) and castable(SB.BeastialWrath) and spell(SB.BeastialWrath).cooldown > 30 then
       if race == "Orc" and castable(SB.BloodFury) then
         cast(SB.BloodFury)
       end
