@@ -22,7 +22,7 @@ local SB = dark_addon.rotation.spellbooks.shaman
 local TB = dark_addon.rotation.spellbooks.shaman
 local DB = dark_addon.rotation.spellbooks.shaman
 local race = UnitRace("player")
-
+local x = 0
 -- enable to treat tank like everyone else - all 'tank' statements will be ignored
 --dark_addon.environment.virtual.exclude_tanks = false
 
@@ -54,9 +54,9 @@ local function combat()
   local inRange = 0
   for i = 1, 40 do
     if
-      UnitExists("nameplate" .. i) and IsSpellInRange("Wind Shear", "nameplate" .. i) == 1 and
-        UnitAffectingCombat("nameplate" .. i)
-     then
+    UnitExists("nameplate" .. i) and IsSpellInRange("Wind Shear", "nameplate" .. i) == 1 and
+            UnitAffectingCombat("nameplate" .. i)
+    then
       inRange = inRange + 1
     end
   end
@@ -98,9 +98,9 @@ local function combat()
   if modifier.shift and castable(SB.HealingRain) then
     return cast(SB.HealingRain, "ground")
   elseif
-    modifier.shift and talent(4, 2) and -spell(SB.HealingRain) > 0 and -spell(SB.EarthenWallTotem) == 0 and
-      not player.spell(SB.EarthenWallTotem).lastcast
-   then
+  modifier.shift and talent(4, 2) and -spell(SB.HealingRain) > 0 and -spell(SB.EarthenWallTotem) == 0 and
+          not player.spell(SB.EarthenWallTotem).lastcast
+  then
     return cast(SB.EarthenWallTotem, "ground")
   end
 
@@ -169,17 +169,17 @@ local function combat()
   --------------------
 
   if
-    toggle("cooldowns", false) and castable(SB.HealingTideTotem) and
-      (lowest.health.percent <= 20 or tank.health.percent <= 35 or group_health_percent < 50)
-   then
+  toggle("cooldowns", false) and castable(SB.HealingTideTotem) and
+          (lowest.health.percent <= 20 or tank.health.percent <= 35 or group_health_percent < 50)
+  then
     print "CD - Healing Tide"
     return cast(SB.HealingTideTotem)
   end
 
   if
-    toggle("cooldowns", false) and (SB.HealingTideTotem) > 0 and castable(SB.Ascendance) and
-      (lowest.health.percent <= 20 or tank.health.percent <= 35 or group_health_percent < 40)
-   then
+  toggle("cooldowns", false) and (SB.HealingTideTotem) > 0 and castable(SB.Ascendance) and
+          (lowest.health.percent <= 20 or tank.health.percent <= 35 or group_health_percent < 40)
+  then
     print "CD - Healing Tide"
     return cast(SB.AscendanceResto)
   end
@@ -188,9 +188,9 @@ local function combat()
 
   --- dot
   if
-    target.enemy and castable(SB.FlameShock) and
-      (not target.debuff(SB.FlameShock) or target.debuff(SB.FlameShock).remains <= 6)
-   then
+  target.enemy and castable(SB.FlameShock) and
+          (not target.debuff(SB.FlameShock) or target.debuff(SB.FlameShock).remains <= 6)
+  then
     return cast(SB.FlameShock)
   end
 
@@ -216,9 +216,9 @@ local function combat()
   --- chain heal
 
   if
-    (tank.health.percent > 30 and group_health_percent <= 80) or
-      player.buff(SB.HighTide).up and group_health_percent <= 90
-   then
+  (tank.health.percent > 30 and group_health_percent <= 80) or
+          player.buff(SB.HighTide).up and group_health_percent <= 90
+  then
     return cast(SB.ChainHeal, lowest)
   elseif player.buff(SB.HighTide).up and tank.health.percent <= 80 then
     return cast(SB.ChainHeal, tank)
@@ -257,10 +257,10 @@ local function combat()
 
   --dps
   if
-    castable(SB.LavaBurst, target) and lowest.health.percent > 50 and tank.health.percent > 50 and target.enemy and
-      inRange <= 2 and
-      target.distance < 40
-   then
+  castable(SB.LavaBurst, target) and lowest.health.percent > 50 and tank.health.percent > 50 and target.enemy and
+          inRange <= 2 and
+          target.distance < 40
+  then
     return cast(SB.LavaBurst, "target")
   end
 
@@ -284,6 +284,14 @@ local function resting()
     if talent(2, 3) and tank.distance < 40 and (tank.buff(SB.EarthShield).down or tank.buff(SB.EarthShield).count <= 2) then
       return cast(SB.EarthShield, tank)
     end
+    if player.moving and not player.buff(SB.GhostWolf).up then
+      x = x + 1
+      if x >= 7 then
+        x = 0
+        return cast(SB.GhostWolf)
+      end
+    end
+
     --------------------
     ---  Modifiers
     --------------------
@@ -314,62 +322,62 @@ local function resting()
 end
 local function interface()
   dark_addon.interface.buttons.add_toggle(
-    {
-      name = "DPS",
-      label = "DPS",
-      on = {
-        label = "DPS",
-        color = dark_addon.interface.color.orange,
-        color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_orange, 0.7)
-      },
-      off = {
-        label = "DPS",
-        color = dark_addon.interface.color.grey,
-        color2 = dark_addon.interface.color.dark_grey
-      }
-    }
+          {
+            name = "DPS",
+            label = "DPS",
+            on = {
+              label = "DPS",
+              color = dark_addon.interface.color.orange,
+              color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_orange, 0.7)
+            },
+            off = {
+              label = "DPS",
+              color = dark_addon.interface.color.grey,
+              color2 = dark_addon.interface.color.dark_grey
+            }
+          }
   )
   dark_addon.interface.buttons.add_toggle(
-    {
-      name = "DISPELL",
-      label = "DISP",
-      on = {
-        label = "DISP",
-        color = dark_addon.interface.color.orange,
-        color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_orange, 0.7)
-      },
-      off = {
-        label = "DISP",
-        color = dark_addon.interface.color.grey,
-        color2 = dark_addon.interface.color.dark_grey
-      }
-    }
+          {
+            name = "DISPELL",
+            label = "DISP",
+            on = {
+              label = "DISP",
+              color = dark_addon.interface.color.orange,
+              color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_orange, 0.7)
+            },
+            off = {
+              label = "DISP",
+              color = dark_addon.interface.color.grey,
+              color2 = dark_addon.interface.color.dark_grey
+            }
+          }
   )
   dark_addon.interface.buttons.add_toggle(
-    {
-      name = "Racial",
-      label = "Racial",
-      on = {
-        label = "Racial",
-        color = dark_addon.interface.color.orange,
-        color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_orange, 0.7)
-      },
-      off = {
-        label = "Racial",
-        color = dark_addon.interface.color.grey,
-        color2 = dark_addon.interface.color.dark_grey
-      }
-    }
+          {
+            name = "Racial",
+            label = "Racial",
+            on = {
+              label = "Racial",
+              color = dark_addon.interface.color.orange,
+              color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_orange, 0.7)
+            },
+            off = {
+              label = "Racial",
+              color = dark_addon.interface.color.grey,
+              color2 = dark_addon.interface.color.dark_grey
+            }
+          }
   )
 end
 
 dark_addon.rotation.register(
-  {
-    spec = dark_addon.rotation.classes.shaman.restoration,
-    name = "ShamPalRest",
-    label = "restoration shaman - not updated for 8.1",
-    combat = combat,
-    resting = resting,
-    interface = interface
-  }
+        {
+          spec = dark_addon.rotation.classes.shaman.restoration,
+          name = "ShamPalRest",
+          label = "restoration shaman - not updated for 8.1",
+          combat = combat,
+          resting = resting,
+          interface = interface
+        }
 )
