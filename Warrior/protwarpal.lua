@@ -249,7 +249,7 @@ local function combat()
       return cast(SB.Avatar)
     end
     --Intercept/charge  (always keep one charge for movement) ..might need to rethink this ..not sure ...might get us in trouble ;)
-    if IsInRaid() == false and target.castable(SB.Intercept) and player.spell(SB.Intercept).count > 1 then
+    if IsInRaid() == false and target.castable(SB.Intercept) and player.spell(SB.Intercept).charges > 1 then
       return cast(SB.Intercept, target)
     end
     if talent(6, 1) and castable(SB.DemoralizingShout) and -power.rage <= 60 and (-spell(SB.ShieldSlam) == 0 or -spell(SB.ShieldSlam) > 4) then
