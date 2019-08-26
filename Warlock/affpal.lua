@@ -57,7 +57,7 @@ end
 dark_addon.rotation.register(
 	{
 		spec = dark_addon.rotation.classes.warlock.affliction,
-		name = "affliction",
+		name = "affpal",
 		label = "Affliction Warlock",
 		combat = combat,
 		resting = resting

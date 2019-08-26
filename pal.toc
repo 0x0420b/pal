@@ -29,3 +29,4 @@ Priest\holyPal.lua
 Warrior\protwarpal.lua
 Warrior\armswarpal.lua
 Warrior\furywarpal.lua
+Warlock\affliction_ferib.lua
