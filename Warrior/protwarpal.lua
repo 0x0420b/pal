@@ -171,11 +171,11 @@ local function combat()
     return cast(SB.SpellReflect)
   end
 
-  --regain control
+  --[[regain control
   if (not HasFullControl() or player.debuff(34940).up) and castable(SB.BerserkerRage) then
     print("Berserk!")
     return cast(SB.BerserkerRage)
-  end
+  end]]--
 
   if autoLoot == true then
     -------------------------
