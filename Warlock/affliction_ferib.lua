@@ -3,8 +3,9 @@
 -- Holding Alt = Drain Life -> target
 -- Holding Shift = Fear -> target
 -- Holding Control = Seed of Corruption -> target
--- Multitarget will cause Seed of Corruption on current target
+-- Multitarget will cause Seed of Corruption on current target (buggy)
 
+-- NOTE: in order to make proper use of multidotting, use TargetNearbyEnemy (default key: tab) in order to target your targets, or else the rotation bugs on targeting (sometimes)
 
 local dark_addon = dark_interface
 local SB = dark_addon.rotation.spellbooks.warlock
