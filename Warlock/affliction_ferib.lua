@@ -1,4 +1,4 @@
--- Affliction Warlock for 8.1 by Rotations - 10/2018
+-- Affliction Warlock for 8.1 by Ferib - 07/2019
 -- Talents: Any
 -- Holding Alt = Drain Life -> target
 -- Holding Shift = Fear -> target
