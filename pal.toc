@@ -21,6 +21,7 @@ Paladin\protpal.lua
 Paladin\holypal.lua
 Paladin\retpal.lua
 Rogue\outrogpal.lua
+Rogue\asspal.lua
 Shaman\ShamPalRest.lua
 Shaman\ShamPalEle.lua
 Shaman\Elepal.lua
